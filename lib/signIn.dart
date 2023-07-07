@@ -43,7 +43,7 @@ class SignIn extends StatelessWidget {
                 onPressed: () {
                   bool validate = validateLogin("email", "password");
                   if(validate){
-                    Navigator.pushNamedAndRemoveUntil(context, '/startUp', (route) => false);
+                    Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
                   }
                   // Handle sign in
                 },

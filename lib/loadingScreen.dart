@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class StartUp extends StatelessWidget {
-  const StartUp({Key? key});
+class LoadingScreen extends StatelessWidget {
+  const LoadingScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {

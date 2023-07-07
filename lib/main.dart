@@ -1,6 +1,7 @@
 import 'package:e_vozniska/signIn.dart';
-import 'package:flutter/material.dart';
 import 'package:e_vozniska/startUp.dart';
+import 'package:flutter/material.dart';
+import 'package:e_vozniska/loadingScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,10 +19,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.lightGreen,
       ),
       home: const MyHomePage(title: 'eVoznik'),
-      initialRoute: "/signIn",
+      initialRoute: "/startUp",
       routes: {
-        '/startUp': (context) => const StartUp(),
+        '/loadingScreen': (context) => const LoadingScreen(),
         '/signIn' : (context) => const SignIn(),
+        '/startUp' : (context) => const StartUp(),
       },
     );
   }
