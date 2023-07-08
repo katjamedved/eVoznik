@@ -7,7 +7,7 @@ class SignIn extends StatelessWidget {
 
 
   Future<bool> validateLogin(String email, String password) async{
-    String DB_IP = "192.168.0.17";
+    String DB_IP = "192.168.0.26";
     int DB_PORT =3306;
     String DB_NAME ="eVoznikDB";
     String DB_USERNAME = "admin";
@@ -36,7 +36,7 @@ class SignIn extends StatelessWidget {
       }
       await conn.close();
     }catch(e){
-      print(e);
+      print(e.toString());
     }
     return true;
   }
