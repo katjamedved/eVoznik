@@ -1,17 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:mysql1/mysql1.dart';
+
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key});
 
 
-  bool validateLogin(String email, String password) {
+  Future<bool> validateLogin(String email, String password) async{
+    String DB_IP = "192.168.0.17";
+    int DB_PORT =3306;
+    String DB_NAME ="eVoznikDB";
+    String DB_USERNAME = "admin";
+    String DB_PASS = "adminadmin123!";
+
+    final settings = ConnectionSettings(
+      host: DB_IP,
+      port: DB_PORT,
+      user: DB_USERNAME,
+      password: DB_PASS,
+      db: DB_NAME,
+      timeout: const Duration(seconds: 5),
+    );
     if (email.isEmpty) {
       return false;
     }
     if (password.isEmpty || password.length < 6) {
       return false;
     }
-    // validation checks
+    print("DB CONNECTION TEST");
+    try{
+      final conn = await MySqlConnection.connect(settings);
+      final results = await conn.query('SELECT * FROM users');
+      for (var row in results) {
+        print(row.fields); // Access row data
+      }
+      await conn.close();
+    }catch(e){
+      print(e);
+    }
     return true;
   }
 
@@ -40,8 +66,8 @@ class SignIn extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: () {
-                  bool validate = validateLogin("email", "password");
+                onPressed: () async {
+                  bool validate = await validateLogin("email", "password") ;
                   if(validate){
                     Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
                   }
