@@ -5,7 +5,7 @@ class StartUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(milliseconds: 900), () {
       Navigator.pushReplacementNamed(context, '/signIn');
     });
 
