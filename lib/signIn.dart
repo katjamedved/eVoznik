@@ -6,12 +6,12 @@ class SignIn extends StatelessWidget {
   const SignIn({Key? key});
 
 
-  Future<bool> validateLogin(String email, String password) async{
-    String DB_IP = "192.168.0.26";
-    int DB_PORT =3306;
-    String DB_NAME ="eVoznikDB";
+  Future<bool> validateLogin(String email, String password) async {
+    String DB_IP = "192.168.0.1";
+    int DB_PORT = 3306;
+    String DB_NAME = "eVoznikDB";
     String DB_USERNAME = "admin";
-    String DB_PASS = "adminadmin123!";
+    String DB_PASS = "admin123!";
 
     final settings = ConnectionSettings(
       host: DB_IP,
@@ -21,25 +21,33 @@ class SignIn extends StatelessWidget {
       db: DB_NAME,
       timeout: const Duration(seconds: 5),
     );
+
     if (email.isEmpty) {
+      print("Email is empty");
       return false;
     }
     if (password.isEmpty || password.length < 6) {
+      print("Invalid password");
       return false;
     }
+
     print("DB CONNECTION TEST");
-    try{
+    try {
       final conn = await MySqlConnection.connect(settings);
-      final results = await conn.query('SELECT * FROM users');
+      print("Connected to MySQL database");
+      final results = await conn.query('SELECT * FROM user');
       for (var row in results) {
         print(row.fields); // Access row data
       }
       await conn.close();
-    }catch(e){
-      print(e.toString());
+      print("Connection closed");
+    } catch (e) {
+      print("Error connecting to MySQL database: $e");
     }
+
     return true;
   }
+
 
   @override
   Widget build(BuildContext context) {
