@@ -35,8 +35,15 @@ class SignIn extends StatelessWidget {
     try {
       final conn = await MySqlConnection.connect(settings);
       print("Connected to MySQL database");
-      final results = await conn.query('SELECT * FROM user');
-      print(results);
+      try {
+        final results = await conn.query('SELECT * FROM category');
+        for (var row in results) {
+          print(row.values); // Access row data
+        }
+      } catch (e) {
+        print('Error executing query: $e');
+      }
+
       await conn.close();
       print("Connection closed");
     } catch (e) {
