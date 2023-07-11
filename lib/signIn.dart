@@ -37,7 +37,7 @@ class SignIn extends StatelessWidget {
 
       // Execute queries or perform other database operations here
 
-      final resoults = await conn.query("SELECT * FROM user");
+      final resoults = await conn.query("SELECT name FROM user");
 
 
       // Execute the SELECT query
@@ -90,7 +90,7 @@ class SignIn extends StatelessWidget {
                 onPressed: () async {
                   bool validate = await validateLogin("email", "password") ;
                   if(validate){
-                    Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
+                    //Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
                   }
                   // Handle sign in
                 },
