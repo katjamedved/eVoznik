@@ -31,7 +31,6 @@ dependencies:
   flutter:
     sdk: flutter
   mysql1: 0.20.0
-  sprintf: ^7.0.0
 
 
 

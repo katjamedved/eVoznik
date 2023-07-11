@@ -1,48 +1,36 @@
+import 'dart:convert';
+
 import 'package:e_vozniska/mysql/mysqlConnection.dart';
 import 'package:flutter/material.dart';
+import 'package:crypto/crypto.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key});
 
-
-
   Future<bool> validateLogin(String email, String password) async {
     var mySql = Mysql();
-
-
     if (email.isEmpty) {
       print("Email is empty");
       return false;
     }
-    if (password.isEmpty || password.length < 6) {
-      print("Invalid password");
+    if (password.isEmpty) {
+      print("Password is empty");
       return false;
     }
-
-    print("DB CONNECTION TEST");
-
     try {
       final conn = await mySql.getConnection();
-      print("Connected to MySQL database");
+      final results = await conn.query("SELECT password FROM signin_data WHERE email = ?", [email]);
 
-      // Execute queries or perform other database operations here
-      final resoults = await conn.query("SELECT password FROM signin_data WHERE email = ?", [email]);
-
-      // Execute the SELECT query
-      if(await resoults.isEmpty){
-        print("RESOULTS ARE EMPTY");
+      if(results.isEmpty){
+        return false;
       }
-
       else{
-        if(resoults.length==1){
-          for(var row in resoults){
+        if(results.length==1){
+          for(var row in results){
             if (row[0] == password){
               return true;
             }
           }
-        }
-        else{
-          print("More than 1 user with this email");
         }
       }
     } catch (e) {
@@ -51,6 +39,13 @@ class SignIn extends StatelessWidget {
     }
     return false;
   }
+  Future<String> hashPass(String pass) async{
+    var bytes = utf8.encode(pass);
+    String hashPass = sha512.convert(bytes).toString();
+    print(hashPass);
+    return hashPass;
+  }
+
   @override
   Widget build(BuildContext context) {
     String userEmail ="";
@@ -75,8 +70,8 @@ class SignIn extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
                TextField(
-                onChanged: (value) {
-                  userPass = value;
+                onChanged: (value) async {
+                  userPass = await hashPass(userPass);
                 },
                 decoration: const InputDecoration(
                   labelText: 'Password',
