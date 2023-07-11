@@ -37,6 +37,15 @@ class SignIn extends StatelessWidget {
 
       // Execute queries or perform other database operations here
 
+      // Execute the SELECT query
+      final results = await conn.query('SELECT * FROM users');
+
+      // Print the results
+      for (var row in results) {
+        print(row.fields);
+      }
+
+
       await conn.close();
       print("Connection closed");
       return true;
