@@ -1,26 +1,14 @@
 import 'package:e_vozniska/mysql/mysqlConnection.dart';
 import 'package:flutter/material.dart';
-import 'package:mysql1/mysql1.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key});
 
 
-  Future<bool> validateLogin(String email, String password) async {
-    final DB_IP = "192.168.0.26";
-    final DB_PORT = 3306;
-    final DB_NAME = "eVoznikDB";
-    final DB_USERNAME = "eVoznik";
-    final DB_PASS = "evoznik123!";
 
-    final settings = ConnectionSettings(
-      host: DB_IP,
-      port: DB_PORT,
-      user: DB_USERNAME,
-      password: DB_PASS,
-      db: DB_NAME,
-      timeout: const Duration(seconds: 5),
-    );
+  Future<bool> validateLogin(String email, String password) async {
+    var mySql = Mysql();
+
 
     if (email.isEmpty) {
       print("Email is empty");
@@ -32,33 +20,42 @@ class SignIn extends StatelessWidget {
     }
 
     print("DB CONNECTION TEST");
+
     try {
-      final conn = await MySqlConnection.connect(settings);
+      final conn = await mySql.getConnection();
       print("Connected to MySQL database");
 
       // Execute queries or perform other database operations here
-
-      final resoults = await conn.query("SELECT name FROM user");
-
+      final resoults = await conn.query("SELECT password FROM signin_data WHERE email = ?", [email]);
 
       // Execute the SELECT query
       if(await resoults.isEmpty){
         print("RESOULTS ARE EMPTY");
       }
+
       else{
-        for(var row in resoults){
-          print(row.fields);
+        if(resoults.length==1){
+          for(var row in resoults){
+            if (row[0] == password){
+              return true;
+            }
+          }
+        }
+        else{
+          print("More than 1 user with this email");
         }
       }
-
-      return true;
     } catch (e) {
       print("Error connecting to MySQL database: $e");
       return false;
     }
+    return false;
   }
   @override
   Widget build(BuildContext context) {
+    String userEmail ="";
+    String userPass = "";
+
     return Scaffold(
       body: Container(
         color: Colors.green[200], // Set the desired background color here
@@ -68,14 +65,20 @@ class SignIn extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const TextField(
-                decoration: InputDecoration(
+                TextField(
+                 onChanged: (value){
+                   userEmail = value;
+                 },
+                decoration: const InputDecoration(
                   labelText: 'Email',
                 ),
               ),
               const SizedBox(height: 16.0),
-              const TextField(
-                decoration: InputDecoration(
+               TextField(
+                onChanged: (value) {
+                  userPass = value;
+                },
+                decoration: const InputDecoration(
                   labelText: 'Password',
                 ),
                 obscureText: true,
@@ -83,11 +86,10 @@ class SignIn extends StatelessWidget {
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () async {
-                  bool validate = await validateLogin("email", "password") ;
+                  bool validate = await validateLogin(userEmail,userPass) ;
                   if(validate){
-                    //Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
+                    Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
                   }
-                  // Handle sign in
                 },
                 child: const Text('Sign In'),
               ),
