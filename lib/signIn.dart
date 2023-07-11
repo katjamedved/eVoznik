@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
 
-
 class SignIn extends StatelessWidget {
   const SignIn({Key? key});
 
 
   Future<bool> validateLogin(String email, String password) async {
-    String DB_IP = "192.168.0.26";
-    int DB_PORT = 3306;
-    String DB_NAME = "eVoznikDB";
-    String DB_USERNAME = "admin";
-    String DB_PASS = "admin123!";
+    final DB_IP = "localhost";
+    final DB_PORT = 3306;
+    final DB_NAME = "eVoznikDB";
+    final DB_USERNAME = "eVoznik";
+    final DB_PASS = "evoznik123!";
 
     final settings = ConnectionSettings(
       host: DB_IP,
@@ -35,23 +34,18 @@ class SignIn extends StatelessWidget {
     try {
       final conn = await MySqlConnection.connect(settings);
       print("Connected to MySQL database");
-      try {
-        final results = await conn.query('SELECT * FROM category');
-        for (var row in results) {
-          print(row.values); // Access row data
-        }
-      } catch (e) {
-        print('Error executing query: $e');
-      }
+
+      // Execute queries or perform other database operations here
 
       await conn.close();
       print("Connection closed");
+      return true;
     } catch (e) {
       print("Error connecting to MySQL database: $e");
+      return false;
     }
-
-    return true;
   }
+
 
 
   @override
