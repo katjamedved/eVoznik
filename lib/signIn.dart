@@ -1,3 +1,4 @@
+import 'package:e_vozniska/mysql/mysqlConnection.dart';
 import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
 
@@ -41,27 +42,21 @@ class SignIn extends StatelessWidget {
 
 
       // Execute the SELECT query
-      if(resoults.isEmpty){
+      if(await resoults.isEmpty){
         print("RESOULTS ARE EMPTY");
       }
       else{
-
         for(var row in resoults){
           print(row.fields);
         }
       }
 
-      await conn.close();
-      print("Connection closed");
       return true;
     } catch (e) {
       print("Error connecting to MySQL database: $e");
       return false;
     }
   }
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
