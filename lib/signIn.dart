@@ -60,7 +60,18 @@ class SignIn extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 150), // Added spacing above the ToggleSwitch
+              SizedBox(height: 80),
+              const Text(
+                "Sign in",
+                style: TextStyle(
+                  fontSize: 28,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 40),
+
+              // Added spacing above the ToggleSwitch
               SizedBox(
                 height: 35,
                 child: ToggleSwitch(
@@ -85,6 +96,12 @@ class SignIn extends StatelessWidget {
                   userEmail = value;
                 },
                 decoration: const InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.grey, // Set the desired border color
+                      width: 1.0, // Set the desired border width
+                    ),
+                  ),
                   labelText: 'Email',
                 ),
               ),
@@ -94,6 +111,12 @@ class SignIn extends StatelessWidget {
                   userPass = await hashPass(userPass);
                 },
                 decoration: const InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.grey, // Set the desired border color
+                      width: 1.0, // Set the desired border width
+                    ),
+                  ),
                   labelText: 'Password',
                 ),
                 obscureText: true,
@@ -106,10 +129,10 @@ class SignIn extends StatelessWidget {
                     Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
                   }
                 },
-                child: const Text('Sign In'),
+                child: const Text('LOGIN'),
                 style:  ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent), // Set the desired background colo
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),))// r
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),)),
                 ),
               ),
             ],
