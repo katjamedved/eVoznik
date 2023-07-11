@@ -6,7 +6,7 @@ class SignIn extends StatelessWidget {
 
 
   Future<bool> validateLogin(String email, String password) async {
-    final DB_IP = "localhost";
+    final DB_IP = "192.168.0.26";
     final DB_PORT = 3306;
     final DB_NAME = "eVoznikDB";
     final DB_USERNAME = "eVoznik";
@@ -37,14 +37,19 @@ class SignIn extends StatelessWidget {
 
       // Execute queries or perform other database operations here
 
+      final resoults = await conn.query("SELECT * FROM user");
+
+
       // Execute the SELECT query
-      final results = await conn.query('SELECT * FROM users');
-
-      // Print the results
-      for (var row in results) {
-        print(row.fields);
+      if(resoults.isEmpty){
+        print("RESOULTS ARE EMPTY");
       }
+      else{
 
+        for(var row in resoults){
+          print(row.fields);
+        }
+      }
 
       await conn.close();
       print("Connection closed");

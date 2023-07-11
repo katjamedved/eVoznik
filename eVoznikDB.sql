@@ -7,6 +7,11 @@ DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS reg_code;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS signin_data;
+DROP TABLE IF EXISTS drives;
+DROP TABLE IF EXISTS date_time;
+DROP TABLE IF EXISTS day;
+DROP TABLE IF EXISTS docs;
+DROP TABLE IF EXISTS subject;
 
 
 CREATE TABLE IF NOT EXISTS instructor (
@@ -31,11 +36,16 @@ CREATE TABLE IF NOT EXISTS user (
     lastname VARCHAR(50) NOT NULL, 
     phone VARCHAR(25), 
     address VARCHAR(255) NOT NULL, 
-    zip VARCHAR(255) NOT NULL, 
-    city VARCHAR(255) NOT NULL,
-    country VARCHAR(255) NOT NULL,
+    FK_location INT,
     FK_signin_data INT
 );
+
+CREATE TABLE IF NOT EXISTS location (
+    zip VARCHAR(255) NOT NULL, 
+    city VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL
+);
+
 
 CREATE TABLE IF NOT EXISTS signin_data (
     id INT PRIMARY KEY UNIQUE AUTO_INCREMENT,
@@ -58,27 +68,23 @@ CREATE TABLE IF NOT EXISTS docs (
 
 CREATE TABLE IF NOT EXISTS drives (
 	id INT PRIMARY KEY UNIQUE AUTO_INCREMENT,
-    
+    date_time DATETIME
 );
 
-CREATE TABLE IF NOT EXISTS date_time (
+CREATE TABLE IF NOT EXISTS drives (
 	id INT PRIMARY KEY UNIQUE AUTO_INCREMENT,
-    
-    
+    name VARCHAR(45)
 );
 
-/*
-ALTER TABLE leads ADD CONSTRAINT FK_collectionName_L FOREIGN KEY (FK_collectionName_L) REFERENCES collection(id) ON DELETE CASCADE ON UPDATE NO ACTION;
-*/
+CREATE TABLE IF NOT EXISTS subject (
+	id INT PRIMARY KEY UNIQUE AUTO_INCREMENT,
+    name VARCHAR(45)
+);
 
 ALTER TABLE user ADD CONSTRAINT FK_signin_data FOREIGN KEY (FK_signin_data) REFERENCES signin_data(id) ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE reg_code ADD CONSTRAINT FK_user FOREIGN KEY (FK_user) REFERENCES user(id) ON DELETE CASCADE ON UPDATE NO ACTION;
 
-/*INSERT INTO size VALUES 
- id, 	name, 		lengthFrom, lengthTo	
-(1, 	"S",		10, 		20),
-(2, 	"M",		20, 		30),
-(3, 	"L",		30, 		40);*/
+
 
 INSERT INTO category VALUES 
 /* id, 	name */	
@@ -87,11 +93,18 @@ INSERT INTO category VALUES
 (3, 	"A"),
 (4, 	"B");
 
+INSERT INTO subject VALUES 
+/* id, 	name */	
+(1, 	"Poligon"),
+(2, 	"Cesta");
+
+
+
 INSERT INTO instructor VALUES 
 /* id, 	name, lastname, email, password, phone, licence  */
 (1, 	"InstructorIme", "InstructorPriimek", "ins@mail.com", "geslogeslo123!", "123-456-789", "123456789");
 
 INSERT INTO user VALUES 
-/* id, 	nmb_document, 				name, 	lastname,  		phone, 			address, 			zip, 		city, 			country,  			signin_data*/	
-(1, 	"PERSONALDOCNUMBER123",		"Ime", 	"Priimek", 	 	"123-456-789", 	"Ulica Ulica 123", 	"1000", 	"Ljubljana", 	"Slovenija", 		null);
+/* id, 	nmb_document, 				name, 	lastname,  		phone, 			address, 			FK_location  		FK_signin_data*/	
+(1, 	"PERSONALDOCNUMBER123",		"Ime", 	"Priimek", 	 	"123-456-789", 	"Ulica Prva 123", 	null, 	 			null);
 
