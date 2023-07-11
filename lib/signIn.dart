@@ -56,7 +56,7 @@ class SignIn extends StatelessWidget {
       body: Container(
         color: Colors.green[200], // Set the desired background color here
         child: Padding(
-          padding: const EdgeInsets.all(60.0),
+          padding: const EdgeInsets.all(50.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -69,19 +69,19 @@ class SignIn extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 60),
 
               // Added spacing above the ToggleSwitch
               SizedBox(
                 height: 35,
                 child: ToggleSwitch(
-                  minWidth: 110.0,
+                  minWidth: 90.0,
                   cornerRadius: 20.0,
-                  activeBgColors: const [[Colors.lightGreenAccent], [Colors.lightGreenAccent]],
+                  activeBgColors: [ const [Colors.white],  const [Colors.white]],
                   activeFgColor: Colors.black,
-                  inactiveBgColor: Colors.grey[200],
+                  inactiveBgColor: Colors.grey[300],
                   inactiveFgColor: Colors.black,
-                  initialLabelIndex: 1,
+                  initialLabelIndex: 0,
                   totalSwitches: 2,
                   labels: const ['Driver', 'Instructor'],
                   radiusStyle: true,
@@ -90,17 +90,18 @@ class SignIn extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(height: 70.0),
+              SizedBox(height: 80.0),
               TextField(
                 onChanged: (value) {
                   userEmail = value;
                 },
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.grey, // Set the desired border color
                       width: 1.0, // Set the desired border width
                     ),
+                    borderRadius: BorderRadius.circular(60.0),
                   ),
                   labelText: 'Email',
                 ),
@@ -110,29 +111,44 @@ class SignIn extends StatelessWidget {
                 onChanged: (value) async {
                   userPass = await hashPass(userPass);
                 },
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(
+
+                    borderSide: const BorderSide(
                       color: Colors.grey, // Set the desired border color
                       width: 1.0, // Set the desired border width
                     ),
+                    borderRadius: BorderRadius.circular(60.0),
                   ),
                   labelText: 'Password',
                 ),
                 obscureText: true,
               ),
               SizedBox(height: 100.0),
-              ElevatedButton(
-                onPressed: () async {
-                  bool validate = await validateLogin(userEmail, userPass);
-                  if (validate) {
-                    Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
-                  }
-                },
-                child: const Text('LOGIN'),
-                style:  ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.lightGreenAccent), // Set the desired background colo
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),)),
+              Container(
+                width: 190, // Set the desired width to fill the available space
+                child: ElevatedButton(
+                  onPressed: () async {
+                    bool validate = await validateLogin(userEmail, userPass);
+                    if (validate) {
+                      Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
+                    }
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white), // Set the desired background color
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20), // Set the desired border radius
+                      ),
+                    ),
+                  ),
+                  child: const Text(
+                      'LOGIN',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold
+                      ),
+                  ),
                 ),
               ),
             ],
