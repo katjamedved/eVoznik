@@ -5,6 +5,9 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pushReplacementNamed(context, '/');
+    });
     return Scaffold(
       body: Container(
         color: Colors.green[300],
