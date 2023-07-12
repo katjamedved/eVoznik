@@ -129,10 +129,15 @@ class SignIn extends StatelessWidget {
                 width: 190, // Set the desired width to fill the available space
                 child: ElevatedButton(
                   onPressed: () async {
-                    bool validate = await validateLogin(userEmail, userPass);
+
+                    Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
+
+                    // FOR TESTING DISABLED REQUIRED PASSWORD AND EMAIL
+
+         /*           bool validate = await validateLogin(userEmail, userPass);
                     if (validate) {
                       Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
-                    }
+                    }*/
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.white), // Set the desired background color

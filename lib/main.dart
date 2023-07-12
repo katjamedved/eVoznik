@@ -44,12 +44,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title:  const Center(
-          child: Text("eVoznik"),
+          child: Text(
+              "eVoznik",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
-        backgroundColor: Colors.lightGreen,
-      ),
-      body: const Text(
-        "Home page"
+        backgroundColor: Colors.green[200],
       ),
     );
   }

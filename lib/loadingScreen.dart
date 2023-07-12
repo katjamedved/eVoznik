@@ -10,7 +10,7 @@ class LoadingScreen extends StatelessWidget {
     });
     return Scaffold(
       body: Container(
-        color: Colors.green[300],
+        color: Colors.green[200],
         child: Center(
           child: Container(
             child: Image.asset(
