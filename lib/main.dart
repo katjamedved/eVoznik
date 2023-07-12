@@ -54,6 +54,21 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         backgroundColor: Colors.green[200],
+        iconTheme: const IconThemeData(
+          color: Colors.white, // Set the desired color for the icon
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.account_circle,
+              color: Colors.white,
+              size: 35.0,
+            ),
+            onPressed: () {
+              // Add your desired action here
+            },
+          ),
+        ],
       ),
       drawer: Drawer(
         child: Column(
@@ -81,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       size: 20.0,
                       color: Colors.green[200],
                     ),
+                    visualDensity: VisualDensity(vertical: -2),
                   ),
                   ListTile(
                     title: Text(
@@ -97,26 +113,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       size: 20.0,
                       color: Colors.green[200],
                     ),
+                    visualDensity: VisualDensity(vertical: -2),
                   ),
                   ListTile(
                     title: Text(
                       "Moj instruktor",
-                      style: TextStyle(
-                        color: Colors.green[200],
-                        fontWeight: FontWeight.bold,
-                        fontSize: 19,
-                      ),
-                    ),
-                    leading: Icon(
-                      Icons.person,
-                      size: 20.0,
-                      color: Colors.green[200],
-                    ),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    title: Text(
-                      "Instruktorji",
                       style: TextStyle(
                         color: Colors.green[200],
                         fontWeight: FontWeight.bold,
@@ -129,6 +130,24 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.green[200],
                     ),
                     onTap: () {},
+                    visualDensity: VisualDensity(vertical: -2),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Instruktorji",
+                      style: TextStyle(
+                        color: Colors.green[200],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.people,
+                      size: 20.0,
+                      color: Colors.green[200],
+                    ),
+                    onTap: () {},
+                    visualDensity: VisualDensity(vertical: -2),
                   ),
                 ],
               ),
@@ -151,6 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.green[200],
                     ),
                     onTap: () {},
+                    visualDensity: VisualDensity(vertical: -2),
                   ),
                   ListTile(
                     title: Text(
@@ -167,7 +187,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.green[200],
                     ),
                     onTap: () {},
+                    visualDensity: VisualDensity(vertical: -2),
                   ),
+                  SizedBox(height: 30),
                 ],
               ),
             ),
