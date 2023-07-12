@@ -31,7 +31,9 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
+
   final String title;
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -41,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  const Center(
+        title: const Center(
           child: Text(
             "eVoznik",
             style: TextStyle(
@@ -54,64 +56,120 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Colors.green[200],
       ),
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
           children: [
-            DrawerHeader(
-                decoration: BoxDecoration(color: Colors.green[200]),
-                child: null
-            ),
-            ListTile(
-              title: Text(
-                  "Dokumentacija",
-                style: TextStyle(
-                  color: Colors.green[200],
-                  fontWeight: FontWeight.bold,
-                    fontSize: 19
-                ),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  DrawerHeader(
+                    decoration: BoxDecoration(color: Colors.green[200]),
+                    child: null,
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Dokumentacija",
+                      style: TextStyle(
+                        color: Colors.green[200],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19,
+                      ),
+                    ),
+                    onTap: () {},
+                    leading: Icon(
+                      Icons.folder,
+                      size: 20.0,
+                      color: Colors.green[200],
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Pregled",
+                      style: TextStyle(
+                        color: Colors.green[200],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19,
+                      ),
+                    ),
+                    onTap: () {},
+                    leading: Icon(
+                      Icons.car_rental_rounded,
+                      size: 20.0,
+                      color: Colors.green[200],
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Moj instruktor",
+                      style: TextStyle(
+                        color: Colors.green[200],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.person,
+                      size: 20.0,
+                      color: Colors.green[200],
+                    ),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Instruktorji",
+                      style: TextStyle(
+                        color: Colors.green[200],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.school,
+                      size: 20.0,
+                      color: Colors.green[200],
+                    ),
+                    onTap: () {},
+                  ),
+                ],
               ),
-              onTap: (){
-
-              },
             ),
-            ListTile(
-              title: Text(
-                  "Pregled",
-                style: TextStyle(
-                    color: Colors.green[200],
-                    fontWeight: FontWeight.bold,
-                    fontSize: 19
-                ),
+            Container(
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      "Nastavitve",
+                      style: TextStyle(
+                        color: Colors.green[200],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.settings,
+                      size: 20.0,
+                      color: Colors.green[200],
+                    ),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    title: Text(
+                      "Odjava",
+                      style: TextStyle(
+                        color: Colors.green[200],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.logout,
+                      size: 20.0,
+                      color: Colors.green[200],
+                    ),
+                    onTap: () {},
+                  ),
+                ],
               ),
-              onTap: (){
-
-              },
-            ),
-            ListTile(
-              title: Text(
-                  "Moj instruktor",
-                style: TextStyle(
-                    color: Colors.green[200],
-                    fontWeight: FontWeight.bold,
-                    fontSize: 19
-                ),
-              ),
-              onTap: (){
-
-              },
-            ),
-            ListTile(
-              title: Text(
-                  "Instruktorji",
-                style: TextStyle(
-                    color: Colors.green[200],
-                    fontWeight: FontWeight.bold,
-                    fontSize: 19
-                ),
-              ),
-              onTap: (){
-
-              },
             ),
           ],
         ),
