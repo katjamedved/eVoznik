@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:e_vozniska/mysql/mysqlConnection.dart';
+import 'package:e_vozniska/server/serverConnection.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto/crypto.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -129,8 +130,10 @@ class SignIn extends StatelessWidget {
                 width: 190, // Set the desired width to fill the available space
                 child: ElevatedButton(
                   onPressed: () async {
-
-                    Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
+                    ServerConnection serverConnection = ServerConnection();
+                    bool valid = await serverConnection.authenticate("email.user@email.com", "GesloGeslo123!");
+                    print(valid);
+                    //Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
 
                     // FOR TESTING DISABLED REQUIRED PASSWORD AND EMAIL
 
