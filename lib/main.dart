@@ -3,6 +3,8 @@ import 'package:e_vozniska/startUp.dart';
 import 'package:flutter/material.dart';
 import 'package:e_vozniska/loadingScreen.dart';
 
+import 'models/logedInUser.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -41,6 +43,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    LogedInUser _logedInUser;
+
     return Scaffold(
       appBar: AppBar(
         title: const Center(
