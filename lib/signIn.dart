@@ -1,46 +1,12 @@
-import 'dart:convert';
-
-import 'package:e_vozniska/mysql/mysqlConnection.dart';
-import 'package:e_vozniska/server/serverConnection.dart';
 import 'package:flutter/material.dart';
+
+import 'dart:convert';
+import 'package:e_vozniska/server/serverConnection.dart';
 import 'package:crypto/crypto.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key});
-
-  Future<bool> validateLogin(String email, String password) async {
-    var mySql = Mysql();
-    if (email.isEmpty) {
-      print("Email is empty");
-      return false;
-    }
-    if (password.isEmpty) {
-      print("Password is empty");
-      return false;
-    }
-    try {
-      final conn = await mySql.getConnection();
-      final results =
-      await conn.query("SELECT password FROM signin_data WHERE email = ?", [email]);
-
-      if (results.isEmpty) {
-        return false;
-      } else {
-        if (results.length == 1) {
-          for (var row in results) {
-            if (row[0] == password) {
-              return true;
-            }
-          }
-        }
-      }
-    } catch (e) {
-      print("Error connecting to MySQL database: $e");
-      return false;
-    }
-    return false;
-  }
 
   Future<String> hashPass(String pass) async {
     var bytes = utf8.encode(pass);
@@ -107,6 +73,7 @@ class SignIn extends StatelessWidget {
                   labelText: 'Email',
                 ),
               ),
+
               SizedBox(height: 16.0),
               TextField(
                 onChanged: (value) async {
@@ -135,7 +102,7 @@ class SignIn extends StatelessWidget {
 
                     /*
                     ServerConnection serverConnection = ServerConnection();
-                    bool auth = await serverConnection.authenticate("email.user@email.com", "GesloGeslo123!");
+                    bool auth = await serverConnection.authenticate("userEmail", "userPass");
 
                     if(auth){
                       Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
