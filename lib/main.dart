@@ -51,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     LogedInUser _logedInUser;
+    final tokenManager = Provider.of<TokenManager>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -197,7 +198,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       size: 20.0,
                       color: Colors.green[200],
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      tokenManager.removeToken();
+                      Navigator.pushNamedAndRemoveUntil(context, '/startUp', (route) => false);
+                    },
                     visualDensity: VisualDensity(vertical: -2),
                   ),
                   SizedBox(height: 30),

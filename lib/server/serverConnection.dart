@@ -9,7 +9,7 @@ class ServerConnection{
 
   Future<bool> authenticate(String email, String password,TokenManager tokenManager) async {
     try {
-      final url = Uri.parse('$_localAddress/authenticate');
+      final url = Uri.parse('$_remoteAddress/authenticate');
       final client = http.Client();
       final Map<String, String> headers = {
         'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ class ServerConnection{
   }
   Future<bool> verifyTokenWithServer(String token,TokenManager tokenManager) async {
     try {
-      final url = Uri.parse('$_localAddress/authenticateToken');
+      final url = Uri.parse('$_remoteAddress/authenticateToken');
       final client = http.Client();
       final Map<String, String> headers = {
         'Content-Type': 'application/json',
