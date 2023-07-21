@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:e_vozniska/server/serverConnection.dart';
 import 'package:crypto/crypto.dart';
+import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+
+import 'models/TokenManeger.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key});
@@ -18,6 +21,7 @@ class SignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     String userEmail = "";
     String userPass = "";
+    final tokenManager = Provider.of<TokenManager>(context, listen: false);
 
     return Scaffold(
       body: Container(
@@ -77,7 +81,7 @@ class SignIn extends StatelessWidget {
               SizedBox(height: 16.0),
               TextField(
                 onChanged: (value) async {
-                  userPass = await hashPass(userPass);
+                  userPass = value ; //await hashPass(value);
                 },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -97,20 +101,15 @@ class SignIn extends StatelessWidget {
                 width: 190, // Set the desired width to fill the available space
                 child: ElevatedButton(
                   onPressed: () async {
-                    print("Disabled auth for application testing");
-                    Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
+    /*                print("Disabled auth for application testing");
+                    Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);*/
 
-                    /*
                     ServerConnection serverConnection = ServerConnection();
-                    bool auth = await serverConnection.authenticate("userEmail", "userPass");
+                    bool auth = await serverConnection.authenticate(userEmail, userPass,tokenManager);
 
                     if(auth){
                       Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
                     }
-                    else{
-                      print("Auth failed");
-                    }*/
-
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.white), // Set the desired background color

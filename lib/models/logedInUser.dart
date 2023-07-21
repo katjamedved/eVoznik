@@ -7,10 +7,11 @@ class LogedInUser{
   String _docNmb;
   String _phoneNumber;
   String _address;
+  int _fkLocation;
 
 
   LogedInUser(this._userId, this._name, this._lastname, this._docNmb,
-      this._phoneNumber, this._address);
+      this._phoneNumber, this._address, this._fkLocation);
 
   String get address => _address;
 
@@ -46,5 +47,11 @@ class LogedInUser{
 
   set userId(int value) {
     _userId = value;
+  }
+
+  int get fkLocation => _fkLocation;
+
+  set fkLocation(int value) {
+    _fkLocation = value;
   }
 }

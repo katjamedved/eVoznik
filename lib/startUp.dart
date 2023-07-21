@@ -1,12 +1,31 @@
+import 'package:e_vozniska/server/serverConnection.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'models/TokenManeger.dart';
 
 class StartUp extends StatelessWidget {
   const StartUp({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 900), () {
-      Navigator.pushReplacementNamed(context, '/signIn');
+    final tokenManager = Provider.of<TokenManager>(context, listen: false);
+
+    Future.delayed(const Duration(milliseconds: 900), () async {
+     String? token = await tokenManager.getToken();
+     ServerConnection serverConnection = ServerConnection();
+     if(token != null){
+       bool _validToken = await serverConnection.verifyTokenWithServer(token, tokenManager);
+       if(_validToken){
+         print("VALID TOKEN");
+         Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
+       }else{
+         print("TOKEN IS NOT VALID");
+         Navigator.pushReplacementNamed(context, '/signIn');
+       }
+     }else{
+       print("NO TOKEN WAS SAVED");
+       Navigator.pushReplacementNamed(context, '/signIn');
+     }
     });
 
     return Scaffold(

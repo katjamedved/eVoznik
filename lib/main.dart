@@ -3,10 +3,17 @@ import 'package:e_vozniska/startUp.dart';
 import 'package:flutter/material.dart';
 import 'package:e_vozniska/loadingScreen.dart';
 
+import 'models/TokenManeger.dart';
 import 'models/logedInUser.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider<TokenManager>(
+      create: (context) => TokenManager(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
