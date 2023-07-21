@@ -20,11 +20,11 @@ class StartUp extends StatelessWidget {
          Navigator.pushNamedAndRemoveUntil(context, '/loadingScreen', (route) => false);
        }else{
          print("TOKEN IS NOT VALID");
-         Navigator.pushReplacementNamed(context, '/signIn');
+         Navigator.pushNamedAndRemoveUntil(context, '/signIn', (route) => false);
        }
      }else{
        print("NO TOKEN WAS SAVED");
-       Navigator.pushReplacementNamed(context, '/signIn');
+       Navigator.pushNamedAndRemoveUntil(context, '/signIn', (route) => false);
      }
     });
 
