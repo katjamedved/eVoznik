@@ -5,11 +5,13 @@ DROP TABLE IF EXISTS docs;
 DROP TABLE IF EXISTS availability; 
 DROP TABLE IF EXISTS tariff; 
 DROP TABLE IF EXISTS drives;
-DROP TABLE IF EXISTS instructor;
-DROP TABLE IF EXISTS driving_school;  
+
+
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS reg_code;
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS instructor;
+DROP TABLE IF EXISTS driving_school;  
 DROP TABLE IF EXISTS signin_data;
 DROP TABLE IF EXISTS drives;
 DROP TABLE IF EXISTS subject;
@@ -50,7 +52,8 @@ CREATE TABLE IF NOT EXISTS user (
     phone VARCHAR(25),
     address VARCHAR(255) NOT NULL,
     FK_location_user INT,
-    FK_signin_data_user INT
+    FK_signin_data_user INT,
+    FK_instructor_user INT
 );
 
 CREATE TABLE IF NOT EXISTS location (
@@ -111,6 +114,7 @@ CREATE TABLE IF NOT EXISTS tariff (
 
 ALTER TABLE user ADD CONSTRAINT FK_signin_data_user FOREIGN KEY (FK_signin_data_user) REFERENCES signin_data(id) ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE user ADD CONSTRAINT FK_location_user FOREIGN KEY (FK_location_user) REFERENCES location(id) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE user ADD CONSTRAINT FK_instructor_user FOREIGN KEY (FK_instructor_user) REFERENCES instructor(id) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 ALTER TABLE reg_code ADD CONSTRAINT FK_user_reg_code FOREIGN KEY (FK_user_reg_code) REFERENCES user(id) ON DELETE CASCADE ON UPDATE NO ACTION;
 
@@ -135,11 +139,17 @@ INSERT INTO signin_data VALUES
 INSERT INTO location VALUES 
 /* id, 		zip, 		city,				country */	
 (1, 		"1000",		"Ljubljana", 		"Slovenija");
+INSERT INTO driving_school VALUES 
+/* id, 	name, 				phone,		email, 						password*/	
+(1, 	"Ime avto sole",	"123-456-789",		"email@email.com", 			"geslo123");
 
+INSERT INTO instructor VALUES 
+/* id, 	name, lastname, email, password, phone, licence FK_driving_school */
+(1, 	"InstructorIme", "InstructorPriimek", "ins@mail.com", "geslogeslo123!", "123-456-789", "123456789", 1);
 
 INSERT INTO user VALUES 
-/* id, 	nmb_document,				name,		lastname, 		phone, 			address, 			FK_location,	FK_signin_data */
-(1, 	"PERSONALDOCNUMBER123",		"Ime", 		"Priimek", 		"123-456-789", "Ulica Prva 1", 		1, 				1);
+/* id, 	nmb_document,				name,		lastname, 		phone, 			address, 			FK_location,	FK_signin_data 	FK_instructor		*/
+(1, 	"PERSONALDOCNUMBER123",		"Ime", 		"Priimek", 		"123-456-789", "Ulica Prva 1", 		1, 				1, 				1);
 
 INSERT INTO reg_code VALUES 
 /* id, 		FK_user 			exp_date,		code */	
@@ -163,13 +173,8 @@ INSERT INTO subject VALUES
 (1, 	"Poligon"),
 (2, 	"Cesta");
 
-INSERT INTO driving_school VALUES 
-/* id, 	name, 				phone,		email, 						password*/	
-(1, 	"Ime avto sole",	"123-456-789",		"email@email.com", 			"geslo123");
 
-INSERT INTO instructor VALUES 
-/* id, 	name, lastname, email, password, phone, licence FK_driving_school */
-(1, 	"InstructorIme", "InstructorPriimek", "ins@mail.com", "geslogeslo123!", "123-456-789", "123456789", 1);
+
 
 INSERT INTO availability VALUES 
 /* id, 		date_time 					FK_instructor*/	
